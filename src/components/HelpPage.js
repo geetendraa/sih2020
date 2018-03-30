@@ -32,7 +32,7 @@ const HelpPage = () => (
     </Segment>
 
     {/* ......................buttons in how it work page..................... */}
-    <Segment inverted vertical textAlign='center' class = "abc">
+    <Segment vertical textAlign='center' class = "abc">
       <Container>
         <Grid columns={2} stackable>
           <Grid.Row>
@@ -67,7 +67,7 @@ const HelpPage = () => (
     </Segment>
 {/* .................................if you are hiring header ............. */}
 
-<Segment inverted vertical textAlign='center' class = "abc">
+<Segment vertical textAlign='center' class = "abc">
       <Container>
         <Grid columns={1} stackable>
           <Grid.Row>
@@ -90,7 +90,7 @@ const HelpPage = () => (
       </Container>
     </Segment>
     {/* {....................steps as per hiring ............} */}
-    <Segment inverted vertical textAlign='center' class = "abc">
+    <Segment vertical textAlign='center' class = "abc">
       <Container>
         <Grid columns={1} stackable>
           <Grid.Row>

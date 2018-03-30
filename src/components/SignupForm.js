@@ -1,8 +1,6 @@
 import React from 'react';
-import { Segment, Form, Divider, Grid, Header, Button, Radio } from 'semantic-ui-react';
+import { Segment, Form, Divider, Grid, Header, Button, Radio, List } from 'semantic-ui-react';
 import { validate } from 'email-validator';
-import LogSign from './LogSign'
-import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 class SignupForm extends React.Component {
@@ -15,47 +13,86 @@ class SignupForm extends React.Component {
 		passwordMatchError: false,
 		passwordBlankError: false,
 		firstNameBlankError: false,
-		lastNameBlankError: false
+		passwordLengthError: false,
+		lastNameBlankError: false,
+		blankWorkerTypeError: false
 	}
 
 	onSubmit = (e) => {
-		console.log('makichuuusus');
-		// e.preventDefault();
-		// console.log(document.forms['signupForm'].elements['first_name'].value)
-		// const form = document.forms['signupForm'];
+		e.preventDefault();
 		// form validation
-		// const email = form.elements['email'].value;
-		// if (validate(email) == false) {
-		// 	this.setState(() => ({ emailError: true}));
-		// 	console.log('invalid email.');
-		// } else {
-		// 	this.setState(() => ({ emailError: false }))
-		// }
+		const email = e.target.email.value;
+		if (validate(email) == false) {
+			this.setState(() => ({ emailError: true}));
+		} else {
+			this.setState(() => ({ emailError: false }))
+		}
 		
-		// const password = form.elements['password'].value;
-		// const password_confirm = form.elements['password_confirm'].value;
+		const password = e.target.password.value;
+		const password_confirm = e.target.password_confirm.value;
 
-		// if (password_confirm != password) {
-		// 	this.setState(() => ({ passwordMatchError: true }));
+		if (password_confirm != password) {
+			this.setState(() => ({ passwordMatchError: true }));
+		} else {
+			this.setState(() => ({ passwordMatchError: false }));
+		}
+		
+		// if (password.length < 6 || password_confirm.length < 6) {
+		// 	this.setState(() => ({ passwordLengthError: true }));
+		// } else {
+		// 	this.setState(() => )
 		// }
 
-		// // check if the password is blank
-		// this.setState(() => ({
-		// 	passwordBlankError: password === '' || password_confirm === ''
-		// }));
+		this.setState(() => ({
+			passwordLengthError: password.length < 3
+		}));
 
-		// const first_name = form.elements['first_name'].value;
-		// const last_name = form.elements['last_name'].value;
-		// this.setState(() => ({ firstNameBlankError: first_name === ''}));
-		// this.setState(() => ({ lastNameBlankError: last_name === ''}));
+		// check if the password is blank
+		this.setState(() => ({
+			passwordBlankError: password === '' || password_confirm === ''
+		}));
 
-		// const data = { 'name': first_name }
+		const first_name = e.target.first_name.value;
+		const last_name = e.target.last_name.value;
+		this.setState(() => ({ firstNameBlankError: first_name === ''}));
+		this.setState(() => ({ lastNameBlankError: last_name === ''}));
 
-		// this.props.signup({ name: 'anchit'});
+		const worker_type = e.target.radioGroup.value;
+		// worker_type = worker_type ? 'Government' : 'Freelancer';
+		if (worker_type == '') {
+			this.setState(() => ({ blankWorkerTypeError: true }))
+		}
+		
+		if (this.errorsPresent() === false ) {
+			const signupDetails = {
+				first_name,
+				last_name,
+				email,
+				password,
+				worker_type
+			}
+			this.props.signup(signupDetails);
+		}
 	}
 
 	handleChangeRadio = (e, { value }) => {
-		this.setState(() => ({ value }))
+		this.setState(() => ({ 
+			radioValue: value,
+			blankWorkerTypeError: false
+		}))
+	}
+
+	errorsPresent = () => {
+		if (
+			this.state.emailError ||
+			this.state.firstNameBlankError ||
+			this.state.lastNameBlankError ||
+			this.state.passwordBlankError ||
+			this.state.passwordLengthError ||
+			this.state.passwordMatchError &&
+			this.state.blankWorkerTypeError
+		) return true
+		else return false
 	}
 
 	render = () => (
@@ -72,6 +109,7 @@ class SignupForm extends React.Component {
 					<Segment padded='very'>
 						<Form method='post' onSubmit={this.onSubmit} >
 
+							{/* First Name and last name */}
 							<Form.Group widths='equal'>
 								<Form.Input 
 									fluid label='First name' 
@@ -86,6 +124,7 @@ class SignupForm extends React.Component {
 									error={ this.state.lastNameBlankError } />
 							</Form.Group>
 							
+							{/* email */}
 							<Form.Field>
 								<Form.Input
 									fluid 
@@ -105,7 +144,8 @@ class SignupForm extends React.Component {
 									type='password'
 									name='password'
 									error={ this.state.passwordMatchError}
-									error={ this.state.passwordBlankError} />
+									error={ this.state.passwordBlankError} 
+									error={ this.state.passwordLengthError} />
 							</Form.Field>
 
 							<Form.Field>
@@ -116,7 +156,8 @@ class SignupForm extends React.Component {
 									type='password'
 									name='password_confirm'
 									error={ this.state.passwordMatchError}
-									error={ this.state.passwordBlankError} />
+									error={ this.state.passwordBlankError}
+									error={ this.state.passwordLengthError } />
 							</Form.Field>
 
 							<Form.Field>
@@ -128,7 +169,7 @@ class SignupForm extends React.Component {
 									label='Freelancer'
 									name='radioGroup'
 									value={0}
-									checked={this.state.value === 0}
+									checked={this.state.radioValue === 0}
 									onChange={this.handleChangeRadio}
 								/>
 							</Form.Field>
@@ -137,7 +178,7 @@ class SignupForm extends React.Component {
 									label='Government'
 									name='radioGroup'
 									value={1}
-									checked={this.state.value === 1}
+									checked={this.state.radioValue === 1}
 									onChange={this.handleChangeRadio}
 								/>
 							</Form.Field>
@@ -145,11 +186,22 @@ class SignupForm extends React.Component {
 							<Button 
 								color='teal' 
 								fluid 
-								as={ NavLink } to='/'
 								style={{ marginTop: '1em'}}	>
 									Signup
 							</Button>
 						</Form>
+
+						{/* error list */}
+						<List className='signup-form__error'>
+							{ this.state.emailError &&  <List.Item>Invalid email</List.Item>}
+							{ this.state.passwordBlankError &&  <List.Item>Password must not be blank </List.Item>}
+							{ this.state.passwordLengthError &&  <List.Item>Password must be at least 6 characters</List.Item>}
+							{ this.state.passwordMatchError &&  <List.Item>Passwords do not match</List.Item>}
+							{ this.state.firstNameBlankError &&  <List.Item>First name cannot be blank</List.Item>}
+							{ this.state.lastNameBlankError &&  <List.Item>Last name cannot be blank</List.Item>}
+							{ this.state.blankWorkerTypeError &&  <List.Item>Worker type cannot be blank</List.Item>}							
+						</List>
+						
 					</Segment>
 				</Grid.Column>
 			</Grid>
@@ -159,8 +211,10 @@ class SignupForm extends React.Component {
 
 const matchDispatchToProps = (dispatch) => ({
 	signup: (signupDetails) => { 
-		console.log('helloooo');
-		dispatch('SIGNUP', signupDetails);
+		dispatch({
+			type: 'SIGNUP',
+			signupDetails
+		});
 	 }
 })
 

@@ -3,24 +3,25 @@ import {Segment, Grid, Container, Icon, Header} from 'semantic-ui-react';
 
 export default () => (
   <div>
-    <Segment vertical textAlign='center'>
+    <Segment 
+      vertical 
+      textAlign='center'
+      style={{
+        padding: '6em'
+      }} >
       <Header 
-          content='How it works' 
           size='huge'
+          content='How it works' 
           style={{
             fontSize: '3em',
-            marginTop: '0.7em',
-            // marginLeft:'7em',
-            marginBottom:'1em',
-            color:'inverted'
+            marginBottom: '2em'
           }} />
 
-      <Container>  
-        <Grid columns={4} stackable>    
-          <Grid.Row>
+        <Grid columns={4}>    
+        
 
             <Grid.Column>
-              <Icon name = 'newspaper' size = 'massive' color='teal'/>
+              <Icon name = 'newspaper' size = 'massive'/>
               <Header 
                   content='POST' 
                   size='huge'
@@ -35,7 +36,7 @@ export default () => (
 
             {/* 2nd column */}
             <Grid.Column >
-              <Icon name = 'users' size = 'massive' color='pink'/>
+              <Icon name = 'users' size = 'massive'/>
               
               <Header 
                   content='HIRE' 
@@ -50,9 +51,8 @@ export default () => (
             </Grid.Column>
 
             {/* .....3rd column.............. */}
-
             <Grid.Column >
-              <Icon name = 'computer' size = 'massive' color='red'/>
+              <Icon name = 'computer' size = 'massive'/>
               <Header 
                   content='WORK' 
                   size='huge'
@@ -67,7 +67,7 @@ export default () => (
 
             {/* ...........4th column............ */}
             <Grid.Column >
-              <Icon name = 'money' size = 'massive' color="green"/>
+              <Icon name = 'money' size = 'massive'/>
 
               <Header 
                   content='PAY' 
@@ -81,13 +81,8 @@ export default () => (
               content='Review code, track progress and pay with a click.' />
             </Grid.Column>  
 
-          </Grid.Row>
         </Grid>
-      </Container>
-    </Segment>
-    
-    <Segment vertical textAlign='center'>
-    </Segment>
+    </Segment> 
   </div>
     
 );

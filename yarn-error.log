@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/bin/node /usr/share/yarn/bin/yarn.js run dev-server
+  /usr/bin/node /usr/share/yarn/bin/yarn.js run build:dev
 
 PATH: 
   /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/geetendra/.yarn/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/geetendra/.yarn/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/geetendra/.yarn/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
@@ -6596,9 +6596,9 @@ Lockfile:
 
 Trace: 
   Error: Command failed.
-  Exit signal: SIGTERM
+  Exit code: 2
   Command: sh
-  Arguments: -c webpack-dev-server
+  Arguments: -c webpack
   Directory: /home/geetendra/Downloads/sih2018-master(3)/sih2018-master
   Output:
   

@@ -6,7 +6,6 @@ import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon/Icon';
 import SkillsRequire from './SkillsRequire';
 import HowtoPay from './HowtoPay';
 import AddBudget from './AddBudget';
-import LogSign from './LogSign';
 const PostJobs= () => (
   <div>
       {/* ...............heading of postjobs..................  */}

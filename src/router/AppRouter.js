@@ -14,6 +14,8 @@ import HowtoPay from '../components/HowtoPay';
 // import LogSign from '../components/LogSign';
 import JobsView from '../components/JobsView/JobsView';
 
+import LoginForm from '../components/LoginForm';
+
 const AppRouter = () => (
   <BrowserRouter>
     <div>
@@ -26,7 +28,9 @@ const AppRouter = () => (
           <Route path='/freelencer' component={ FreelencingHelpPage } />
           <Route path='/postjobs' component={ PostJobs} />
           <Route path='/jobs' component={ JobsView } />
-
+          <Route path='/login' component={ LoginForm } />
+          <Route path='/signup' component={ SignupForm } />
+          
         </Switch>
       </div>
       <AppFooter/>
